@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder для изображения анкера -->
+<!-- Замените этот файл на реальное изображение anker_10x100.jpg или anker_10x100.png -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#FFD700" />
+    <corners android:radius="8dp" />
+</shape>
