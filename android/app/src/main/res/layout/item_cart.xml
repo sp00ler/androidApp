@@ -13,7 +13,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Верхняя часть: чекбокс и кнопка удаления -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
                 android:contentDescription="Удалить" />
         </LinearLayout>
 
-        <!-- Основная часть: изображение и информация -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +74,6 @@
                     android:textSize="14sp"
                     android:layout_marginTop="4dp" />
 
-                <!-- Контроль количества -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,8 +86,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:text="-"
-                        android:textSize="18sp"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvQuantity"
@@ -106,8 +102,7 @@
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:text="+"
-                        android:textSize="18sp"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+                        android:textSize="18sp" />
                 </LinearLayout>
 
                 <TextView
@@ -117,7 +112,6 @@
                     android:text="Итого: 0.00 ₽"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="?attr/colorPrimary"
                     android:layout_marginTop="8dp" />
             </LinearLayout>
         </LinearLayout>
