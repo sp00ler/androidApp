@@ -53,7 +53,7 @@ data class AuthRequest(
  */
 data class OrderRequest(
     val user_id: Int,
-    val items: List<OrderItemRequest>
+    val items: @JvmSuppressWildcards List<OrderItemRequest>
 )
 
 data class OrderItemRequest(
