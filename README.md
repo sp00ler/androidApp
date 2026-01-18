@@ -18,6 +18,51 @@
 - **База данных**: PostgreSQL
 - **Библиотеки**: psycopg2, Flask-CORS, werkzeug
 
+## 📚 Документация и обучение
+
+### Быстрый старт
+- **[QUICK_START.md](docs/QUICK_START.md)** - Запуск за 5 минут (для опытных разработчиков)
+
+### Подробные туториалы для начинающих
+Пошаговые инструкции с объяснениями "для 12-летнего ребёнка":
+
+1. **[TUTORIAL_PART1.md](docs/TUTORIAL_PART1.md)** - Установка программ и создание БД
+   - Установка PostgreSQL, Python, Android Studio, Git
+   - Создание структуры проекта
+   - Создание базы данных с таблицами
+   - Добавление начальных данных
+
+2. **[TUTORIAL_PART2.md](docs/TUTORIAL_PART2.md)** - Создание сервера Flask
+   - Настройка виртуальной среды Python
+   - Создание REST API с 5 endpoints
+   - Подключение к PostgreSQL
+   - Запуск и тестирование сервера
+
+3. **[TUTORIAL_PART3.md](docs/TUTORIAL_PART3.md)** - Создание Android приложения (часть 1)
+   - Создание проекта в Android Studio
+   - Добавление библиотек (Retrofit, ViewModel, Coroutines)
+   - Создание структуры пакетов
+   - Настройка цветов и ресурсов
+   - Создание layouts (экраны авторизации, каталога)
+
+4. **[TUTORIAL_PART3_CONTINUED.md](docs/TUTORIAL_PART3_CONTINUED.md)** - Android приложение (часть 2)
+   - Создание моделей данных (Product, User, CartItem)
+   - Настройка сетевого слоя (Retrofit, API)
+   - Создание Repository (хранилищ данных)
+   - Layout для корзины
+
+5. **[TUTORIAL_PART4.md](docs/TUTORIAL_PART4.md)** - Запуск и тестирование
+   - Создание ViewModels (логика экранов)
+   - Создание Activities (сами экраны)
+   - Создание Adapters (для списков)
+   - Настройка AndroidManifest
+   - Запуск на эмуляторе
+   - Полное тестирование приложения
+
+### Техническая документация
+- **[API_DOCUMENTATION.md](docs/API_DOCUMENTATION.md)** - Полное описание REST API
+- **[DATABASE_SCHEMA.md](docs/DATABASE_SCHEMA.md)** - Схема базы данных с диаграммами
+
 ## 🏗 Структура проекта
 
 ```
