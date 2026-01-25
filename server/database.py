@@ -10,8 +10,10 @@ def get_db_connection():
     try:
         conn = psycopg2.connect(
             Config.get_db_connection_string(),
-            cursor_factory=RealDictCursor
+            cursor_factory=RealDictCursor,
+            client_encoding='UTF8'
         )
+        conn.set_client_encoding('UTF8')
         return conn
     except psycopg2.Error as e:
         logger.error(f"Ошибка подключения к БД: {e}")
