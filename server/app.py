@@ -3,6 +3,7 @@ from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 import logging
 from datetime import datetime
+import json
 
 from config import Config
 from database import execute_query
@@ -17,7 +18,16 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config.from_object(Config)
 app.config['JSON_AS_ASCII'] = False  # Поддержка UTF-8 в JSON
+app.config['JSONIFY_MIMETYPE'] = 'application/json; charset=utf-8'
+app.json.ensure_ascii = False  # Явная настройка для Flask 2.2+
 CORS(app)
+
+# Middleware для установки правильного Content-Type с UTF-8
+@app.after_request
+def after_request(response):
+    if response.content_type and 'application/json' in response.content_type:
+        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    return response
 
 
 @app.route('/health', methods=['GET'])
