@@ -14,12 +14,12 @@ except Exception as e:
     print(f"   ✗ Ошибка импорта config: {e}")
 
 try:
-    print("\n2. Импорт database...")
-    from database import execute_query, get_db_connection
-    print("   ✓ database импортирован успешно")
+    print("\n2. Импорт db_helper (database module)...")
+    from db_helper import execute_query, get_db_connection
+    print("   ✓ db_helper импортирован успешно")
     print(f"   Функции: execute_query, get_db_connection")
 except Exception as e:
-    print(f"   ✗ Ошибка импорта database: {e}")
+    print(f"   ✗ Ошибка импорта db_helper: {e}")
     import traceback
     traceback.print_exc()
 

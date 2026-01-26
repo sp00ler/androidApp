@@ -6,7 +6,7 @@ from datetime import datetime
 import json
 
 from config import Config
-from database import execute_query
+from db_helper import execute_query
 
 # Настройка логирования
 logging.basicConfig(
