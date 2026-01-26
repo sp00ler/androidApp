@@ -17,16 +17,16 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 app.config.from_object(Config)
-app.config['JSON_AS_ASCII'] = False  # Поддержка UTF-8 в JSON
-app.config['JSONIFY_MIMETYPE'] = 'application/json; charset=utf-8'
-app.json.ensure_ascii = False  # Явная настройка для Flask 2.2+
 CORS(app)
+
+# Настройка UTF-8 для JSON в Flask 3.0
+app.json.ensure_ascii = False
+app.json.sort_keys = False
 
 # Middleware для установки правильного Content-Type с UTF-8
 @app.after_request
 def after_request(response):
-    if response.content_type and 'application/json' in response.content_type:
-        response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
     return response
 
 
