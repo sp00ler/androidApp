@@ -1,43 +1,12 @@
--- Скрипт настройки базы данных для Windows PostgreSQL
+-- Скрипт настройки базы данных для Windows PostgreSQL - ШАГ 2
 --
--- ⚠️ ВАЖНО ДЛЯ PGADMIN:
--- Этот скрипт использует команду \c (переключение базы данных),
--- которая НЕ работает в pgAdmin Query Tool!
+-- ВАЖНО: Запустите этот скрипт в pgAdmin4 Query Tool,
+-- подключившись к базе "fastener_shop"
 --
--- Для pgAdmin используйте два отдельных скрипта:
--- 1. setup_windows_db_step1_create_db.sql (запустить в postgres)
--- 2. setup_windows_db_step2_schema.sql (запустить в fastener_shop)
+-- (Перед запуском убедитесь, что выполнили setup_windows_db_step1_create_db.sql)
 --
--- Для psql командной строки:
--- psql -U postgres -f setup_windows_db.sql
-
--- 1. Завершить все подключения к базе (если она существует)
-SELECT pg_terminate_backend(pg_stat_activity.pid)
-FROM pg_stat_activity
-WHERE pg_stat_activity.datname = 'fastener_shop'
-  AND pid <> pg_backend_pid();
-
--- 2. Удалить старую базу (если существует)
-DROP DATABASE IF EXISTS fastener_shop;
-
--- 3. Создать новую базу с UTF-8
-CREATE DATABASE fastener_shop
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Russian_Russia.1251'
-    LC_CTYPE = 'Russian_Russia.1251'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    TEMPLATE = template0;
-
-COMMENT ON DATABASE fastener_shop
-    IS 'База данных для приложения "Магазин крепежа"';
-
--- 4. Подключиться к базе
-\c fastener_shop
-
--- 5. Создать схему (таблицы)
+-- Альтернатива для psql:
+-- psql -U postgres -d fastener_shop -f setup_windows_db_step2_schema.sql
 
 -- Удаление существующих таблиц (если есть)
 DROP TABLE IF EXISTS order_items CASCADE;
@@ -96,7 +65,7 @@ COMMENT ON TABLE products IS 'Каталог товаров (крепежные 
 COMMENT ON TABLE orders IS 'Заказы пользователей';
 COMMENT ON TABLE order_items IS 'Позиции в заказах';
 
--- 6. Вставить тестовые данные
+-- Вставить тестовые данные
 INSERT INTO products (name, price, stock_qty, image_key) VALUES
 ('Болт М6x20', 2.50, 100, 'bolt_m6'),
 ('Гайка М6', 1.20, 150, 'nut_m6'),
@@ -119,4 +88,4 @@ SELECT 'Товаров в базе:' AS info, COUNT(*) AS count FROM products;
 SELECT 'Пользователей в базе:' AS info, COUNT(*) AS count FROM users;
 
 -- Готово!
-SELECT '✓ База данных fastener_shop успешно создана и настроена!' AS status;
+SELECT '✓ Схема и данные успешно созданы!' AS status;
