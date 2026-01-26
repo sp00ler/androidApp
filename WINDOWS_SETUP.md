@@ -143,3 +143,161 @@ dir
 **Новое имя:** `db_helper.py` (исправлено)
 
 Если у вас есть файл `database.py`, удалите его и используйте `db_helper.py` вместо него!
+
+---
+
+# Настройка базы данных PostgreSQL в Windows
+
+## Проблема "Ошибка получения товаров"
+
+Если Flask сервер запускается, но при обращении к `/products` вы видите:
+```json
+{"ok": false, "error": "Ошибка получения товаров"}
+```
+
+**Причина:** База данных `fastener_shop` не создана или не содержит таблицы.
+
+## Решение: Автоматическая настройка
+
+### Способ 1: Через pgAdmin4 (рекомендуется)
+
+1. **Откройте pgAdmin4**
+2. **Подключитесь к PostgreSQL 16** (введите пароль `postgres`)
+3. **Откройте Query Tool**:
+   - Правый клик на `PostgreSQL 16` → `Query Tool`
+4. **Скопируйте весь код из файла `setup_windows_db.sql`**
+5. **Нажмите F5 или кнопку Execute**
+
+Вы увидите:
+```
+✓ База данных fastener_shop успешно создана и настроена!
+Товаров в базе: 10
+Пользователей в базе: 1
+```
+
+### Способ 2: Через командную строку
+
+```cmd
+cd c:\путь\к\androidApp
+psql -U postgres -f setup_windows_db.sql
+```
+
+Введите пароль postgres (по умолчанию: `postgres`)
+
+### Способ 3: Пошаговая настройка в pgAdmin4
+
+#### Шаг 1: Создайте базу данных
+
+1. В pgAdmin4: Databases → правый клик → Create → Database
+2. Заполните:
+   - **Database**: `fastener_shop`
+   - **Owner**: `postgres`
+   - **Encoding**: `UTF8`
+3. Нажмите **Save**
+
+#### Шаг 2: Примените схему
+
+1. Правый клик на `fastener_shop` → Query Tool
+2. Откройте содержимое файла `database/schema.sql`
+3. Скопируйте и выполните (F5)
+
+#### Шаг 3: Добавьте тестовые данные
+
+В том же Query Tool выполните:
+
+```sql
+INSERT INTO products (name, price, stock_qty, image_key) VALUES
+('Болт М6x20', 2.50, 100, 'bolt_m6'),
+('Гайка М6', 1.20, 150, 'nut_m6'),
+('Шайба 6мм', 0.50, 200, 'washer_6mm'),
+('Саморез 4x40', 3.00, 80, 'screw_4x40'),
+('Винт М8x30', 4.50, 60, 'bolt_m8'),
+('Дюбель 8x40', 2.80, 120, 'dowel_8x40');
+```
+
+## Проверка настройки
+
+### Тест 1: Проверка через Python
+
+```cmd
+cd c:\путь\к\androidApp
+python test_connection.py
+```
+
+Ожидаемый результат:
+```
+Config loaded successfully
+✓ Подключение успешно!
+PostgreSQL version: PostgreSQL 16.x
+Количество товаров: 6
+✓ Всё работает!
+```
+
+### Тест 2: Проверка через Flask
+
+```cmd
+cd c:\путь\к\androidApp\server
+python app.py
+```
+
+В браузере откройте: `http://localhost:5000/products`
+
+Ожидаемый результат:
+```json
+{
+  "ok": true,
+  "products": [
+    {
+      "id": 1,
+      "name": "Болт М6x20",
+      "price": "2.50",
+      "stock_qty": 100,
+      "image_key": "bolt_m6"
+    },
+    ...
+  ]
+}
+```
+
+## Устранение проблем
+
+### "password authentication failed"
+
+Установите пароль для пользователя postgres:
+
+```sql
+-- В pgAdmin Query Tool:
+ALTER USER postgres WITH PASSWORD 'postgres';
+```
+
+### "connection refused"
+
+1. Проверьте, что PostgreSQL запущен:
+   - Откройте `services.msc`
+   - Найдите `PostgreSQL 16`
+   - Status должен быть `Running`
+
+2. Если не запущен, запустите:
+   - Правый клик → Start
+
+### "database does not exist"
+
+Выполните файл `setup_windows_db.sql` как описано выше.
+
+### "relation 'products' does not exist"
+
+База создана, но схема не применена. Выполните:
+```cmd
+psql -U postgres -d fastener_shop -f database/schema.sql
+```
+
+## Проверка pg_hba.conf
+
+Файл: `C:\Program Files\PostgreSQL\16\data\pg_hba.conf`
+
+Должна быть строка:
+```
+host    all    all    127.0.0.1/32    md5
+```
+
+После изменений перезапустите PostgreSQL через `services.msc`.
