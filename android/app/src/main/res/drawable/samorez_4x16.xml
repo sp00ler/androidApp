@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Placeholder для изображения самореза -->
+<!-- Замените этот файл на реальное изображение samorez_4x16.jpg или samorez_4x16.png -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#C0C0C0" />
+    <corners android:radius="8dp" />
+</shape>

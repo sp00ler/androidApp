@@ -1,0 +1,27 @@
+# Python
+server/venv/
+server/__pycache__/
+server/*.pyc
+server/.env
+*.egg-info/
+.Python
+build/
+dist/
+
+# Database
+*.sql~
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
